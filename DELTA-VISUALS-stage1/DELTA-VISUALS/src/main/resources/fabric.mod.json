@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "delta_visuals",
+  "version": "${version}",
+  "name": "DELTA VISUALS",
+  "description": "A client-side visual customization mod for Minecraft.",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "dev.deltavisuals.DeltaVisuals"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
