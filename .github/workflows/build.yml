@@ -10,16 +10,33 @@ jobs:
         working-directory: DELTA-VISUALS-stage1/DELTA-VISUALS
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.14.3
           build-root-directory: DELTA-VISUALS-stage1/DELTA-VISUALS
-      - run: gradle build
+
+      - name: Build
+        run: |
+          if [ -f gradlew ]; then
+            chmod +x gradlew
+            ./gradlew build --stacktrace
+          else
+            gradle build --stacktrace
+          fi
+
+      - name: List build output
+        run: ls -la build/libs
+
       - uses: actions/upload-artifact@v4
         with:
           name: delta-visuals
-          path: DELTA-VISUALS-stage1/DELTA-VISUALS/build/libs/*.jar
+          path: |
+            DELTA-VISUALS-stage1/DELTA-VISUALS/build/libs/*.jar
+            !DELTA-VISUALS-stage1/DELTA-VISUALS/build/libs/*-sources.jar
+          if-no-files-found: error
